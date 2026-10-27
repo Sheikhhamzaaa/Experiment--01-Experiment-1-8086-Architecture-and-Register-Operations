@@ -108,9 +108,7 @@ from one register to another and store the result in memory.
 <img width="1150" height="628" alt="image" src="https://github.com/user-attachments/assets/dfeafb44-1d54-40d5-8b8c-3dfdbb0631e8" />
 ### Expected Result
 
--   AX = `1234H`
--   BX = `1234H`
--   RESULT = `1234H`
+<img width="415" height="340" alt="image" src="https://github.com/user-attachments/assets/b426b02f-0b9d-4059-b26c-92f48b02e773" />
 
 ### Explanation
 
@@ -129,47 +127,43 @@ Write an 8086 assembly language program to exchange the contents of two
 
 ### Algorithm
 
-1.  Load the first memory value into AX.
-2.  Load the second memory value into BX.
-3.  Store BX at the first memory location.
-4.  Store AX at the second memory location.
-5.  Stop the program.
+1)Initialize the data segment register.
+2)Load the first memory value into register AX.
+3)Load the second memory value into register BX.
+4)Store the value in BX at the first memory location.
+5)Store the value in AX at the second memory location.
+6)Terminate the program.
 
 ### Assembly Program
+
+<img width="1160" height="710" alt="image" src="https://github.com/user-attachments/assets/f3e19822-7598-4997-a136-a5360f2f7ace" />
 
  
 
 ### Expected Result
 
-  Memory Variable     Before Execution   After Execution
-  ----------------- ------------------ -----------------
-  VALUE1                       `1111H`           `2222H`
-  VALUE2                       `2222H`           `1111H`
+<img width="426" height="436" alt="image" src="https://github.com/user-attachments/assets/73a8980f-f335-43b1-ae7b-da4ac0a85c8a" />
 
 ### Explanation
 
-  
-------------------------------------------------------------------------
+First, the data segment register is initialized to access the data stored in memory. The first memory value is loaded into the AX register, and the second memory value is loaded into the BX register. Next, the value in BX is stored in the first memory location, and the value in AX is stored in the second memory location. In this way, the two memory values are exchanged using the AX and BX registers. Finally, the program is terminated.
 
 ## Procedure
 
-1.  Open an 8086-compatible assembler or emulator.
-2.  Create a new assembly source file.
-3.  Enter and assemble the program for the selected part.
-4.  Correct any syntax or assembler-specific errors.
-5.  Execute the program step by step or run it.
-6.  Inspect the registers and memory variables.
-7.  Record the observed results and compare them with the expected
-    results.
+1)Open an 8086-compatible assembler or emulator.
+2)Create a new assembly language file.
+3)Type the given 8086 assembly language program.
+4)Assemble the program and correct any errors if present.
+5)Execute the program using the emulator.
+6)Check the register values and memory contents after execution.
+7)Record the output and verify that it matches the expected result.
 ## Screenshot of the results 
 
-
+<img width="426" height="436" alt="image" src="https://github.com/user-attachments/assets/73a8980f-f335-43b1-ae7b-da4ac0a85c8a" />
 
 ## Result
 
-The 8086 architecture and the functions of the BIU and EU were studied.
-The assembly programs demonstrate 16-bit register transfer with memory
-storage and the exchange of two 16-bit memory values.
+The architecture of the 8086 microprocessor and the functions of the BIU and EU were studied. The 8086 assembly language programs were executed to understand the transfer of 16-bit data between registers and memory, as well as the exchange of two 16-bit values stored in memory.
 
 
 ## Viva Voce Questions
