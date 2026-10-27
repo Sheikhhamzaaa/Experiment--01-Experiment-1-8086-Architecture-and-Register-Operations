@@ -29,70 +29,61 @@ between two memory locations using registers.
 Explain the architecture of the 8086 microprocessor with a neat block
 diagram, describing the functions of the BIU and EU.
 
-### Theory
+###Answer
 
-The Intel 8086 is a 16-bit microprocessor with a 16-bit data bus and a
-20-bit address bus. It can address up to 1 MB of physical memory. Its
-architecture is divided into two major units:
-
-**1. Bus Interface Unit (BIU)** - Generates the 20-bit physical
-address. - Fetches instructions from memory. - Reads data from and
-writes data to memory and I/O devices. - Contains the segment registers:
-CS, DS, SS, and ES. - Contains the Instruction Pointer (IP). - Includes
-a 6-byte instruction prefetch queue, allowing instruction fetching and
-execution to overlap.
-
-**2. Execution Unit (EU)** - Decodes and executes instructions fetched
-by the BIU. - Contains the Arithmetic Logic Unit (ALU). - Contains
-general-purpose registers AX, BX, CX, and DX, which can be accessed as
-8-bit halves. - Contains pointer and index registers SP, BP, SI, and
-DI. - Contains the Flag Register, which records status and control
-flags. - Requests the BIU to perform memory and I/O transfers when
-required.
+The 8086 microprocessor has two main parts called the BIU (Bus Interface Unit) and the EU (Execution Unit). Both units work together to make the processor work faster. The BIU fetches instructions from memory and stores them in a 6-byte queue, which acts like a waiting area for instructions. The EU takes these instructions from the queue and executes them. While the EU is busy executing one instruction, the BIU can fetch the next instructions from memory and keep them ready in the queue. When the EU needs to read or write data from memory or perform an input/output operation, it asks the BIU to do the required work. If a jump instruction changes the normal flow of the program, the instructions already waiting in the queue are cleared, and the BIU fetches new instructions from the new location. In this way, the BIU and EU work together instead of waiting for each other, which helps the 8086 microprocessor execute instructions faster.
 
 ### Simplified Block Diagram
 
-``` text
-                 +-----------------------------------+
-                 |          8086 MICROPROCESSOR     |
-                 |                                   |
-Memory / I/O <-->+-----------------------------------+<--> System Bus
-                 |       Bus Interface Unit (BIU)    |
-                 |  +-----------------------------+  |
-                 |  | Segment Registers            |  |
-                 |  | CS, DS, SS, ES               |  |
-                 |  +-----------------------------+  |
-                 |  | Instruction Pointer (IP)     |  |
-                 |  +-----------------------------+  |
-                 |  | 6-byte Instruction Queue     |  |
-                 |  +-----------------------------+  |
-                 |  | Address Generation / Bus     |  |
-                 |  | Control                      |  |
-                 |  +---------------+-------------+  |
-                 |                  |                |
-                 |       Instruction/Data Interface  |
-                 |                  |                |
-                 |       Execution Unit (EU)         |
-                 |  +-----------------------------+  |
-                 |  | Instruction Decoder &       |  |
-                 |  | Control Circuitry           |  |
-                 |  +-----------------------------+  |
-                 |  | ALU                         |  |
-                 |  +-----------------------------+  |
-                 |  | AX, BX, CX, DX               |  |
-                 |  | SP, BP, SI, DI               |  |
-                 |  | Flag Register                |  |
-                 |  +-----------------------------+  |
-                 +-----------------------------------+
-```
+          +-------------------------------------------+
+          |           8086 MICROPROCESSOR             |
+          |                                           |
+          |  +-------------------+----------------+   |
+          |  | BUS INTERFACE UNIT| EXECUTION UNIT |   |
+          |  |      (BIU)        |     (EU)       |   |
+          |  |                   |                |   |
+          |  | +---------------+ | +------------+ |   |
+          |  | | Segment       | | | Instruction| |   |
+          |  | | Registers     | | | Decoder &  | |   |
+          |  | | CS, DS, SS, ES| | | Control    | |   |
+          |  | +---------------+ | | Logic      | |   |
+          |  |                   | +------------+ |   |
+          |  | +---------------+ |                |   |
+          |  | | Instruction   | | +------------+ |   |
+          |  | | Pointer (IP)  | | |    ALU     | |   |
+          |  | +---------------+ | +------------+ |   |
+          |  |                   |                |   |
+          |  | +---------------+ | +------------+ |   |
+          |  | | 6-Byte        | | | General    | |   |
+          |  | | Instruction   | | | Purpose    | |   |
+          |  | | Queue         | | | Registers  | |   |
+          |  | +---------------+ | | AX, BX, CX,| |   |
+          |  |                   | | DX         | |   |
+          |  | +---------------+ | | SP, BP, SI,| |   |
+          |  | | Address       | | | DI         | |   |
+          |  | | Generation &  | | +------------+ |   |
+          |  | | Bus Control   | |                |   |
+          |  | +---------------+ | +------------+ |   |
+          |  |                   | | Flag       | |   |
+          |  |                   | | Register   | |   |
+          |  |                   | +------------+ |   |
+          |  +---------+---------+----------------+   |
+          |            |                              |
+          +------------|------------------------------+
+                       |
+                 SYSTEM BUS
+          (Address, Data & Control)
+                       |
+                +--------------+
+                | Memory & I/O |
+                |   Devices    |
+                +--------------+
 
 ### Working Principle
 
-The BIU fetches instruction bytes and stores them in its 6-byte queue
-while the EU executes instructions already available in the queue. When
-the EU needs memory or I/O access, it requests the BIU to perform the
-bus operation. A change in program flow, such as a jump, may cause the
-instruction queue to be flushed and refilled.
+### Working Principle
+
+The BIU (Bus Interface Unit) fetches instructions from memory and stores them in its 6-byte instruction queue. Meanwhile, the EU (Execution Unit) takes instructions from the queue, decodes them, and executes them. While the EU is executing instructions, the BIU can fetch the next instructions from memory, allowing both units to work simultaneously. When the EU needs to read or write data from memory or access an I/O device, it requests the BIU to perform the required bus operation. If a jump instruction changes the flow of the program, the existing instructions in the queue are cleared, and the BIU fetches new instructions from the updated location. This process reduces waiting time and improves the overall speed of the 8086 microprocessor.
 
 ------------------------------------------------------------------------
 
@@ -105,35 +96,16 @@ from one register to another and store the result in memory.
 
 ### Algorithm
 
-1.  Load a 16-bit value into AX.
-2.  Transfer the value from AX to BX.
-3.  Store the value in BX into the memory variable `RESULT`.
-4.  Stop the program.
+1. Initialize the data segment register.
+2. Load the 16-bit value 1234H into register AX.
+3. Copy the contents of AX into register BX.
+4. Store the contents of BX in the memory variable RESULT.
+5. Terminate the program
+
 
 ### Assembly Program
 
-``` asm
-.MODEL SMALL
-.STACK 100H
-
-.DATA
-    RESULT DW 0000H
-
-.CODE
-MAIN PROC
-    MOV AX, @DATA
-    MOV DS, AX
-
-    MOV AX, 1234H       ; Load 16-bit value into AX
-    MOV BX, AX          ; Copy AX into BX
-    MOV RESULT, BX      ; Store BX in memory
-
-    MOV AH, 4CH
-    INT 21H
-MAIN ENDP
-END MAIN
-```
-
+<img width="1150" height="628" alt="image" src="https://github.com/user-attachments/assets/dfeafb44-1d54-40d5-8b8c-3dfdbb0631e8" />
 ### Expected Result
 
 -   AX = `1234H`
@@ -142,10 +114,9 @@ END MAIN
 
 ### Explanation
 
-`MOV BX, AX` copies the 16-bit contents of AX into BX without changing
-AX. `MOV RESULT, BX` stores the contents of BX in the 16-bit memory
-variable `RESULT`. The `MOV` instruction does not modify the source
-operand.
+Explanation
+First, the program initializes the data segment register. The instruction MOV AX, 1234H loads the 16-bit value 1234H into AX. Next, MOV BX, AX copies the value from AX into BX without changing AX. Then, MOV RESULT, BX stores the value in BX into the memory variable RESULT. Finally, MOV AH, 4CH and INT 21H terminate the program.
+
 
 ------------------------------------------------------------------------
 
