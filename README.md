@@ -105,11 +105,31 @@ from one register to another and store the result in memory.
 
 ### Assembly Program
 
-<img width="1150" height="628" alt="image" src="https://github.com/user-attachments/assets/dfeafb44-1d54-40d5-8b8c-3dfdbb0631e8" />
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    RESULT DW 0000H
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AX, 1234H
+    MOV BX, AX
+    MOV RESULT, BX
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
 
 ### Expected Result
 
-<img width="415" height="340" alt="image" src="https://github.com/user-attachments/assets/b426b02f-0b9d-4059-b26c-92f48b02e773" />
+AX = 1234H
+BX = 1234H
+RESULT = 1234H
 
 ### Explanation
 
@@ -137,13 +157,39 @@ Write an 8086 assembly language program to exchange the contents of two
 
 ### Assembly Program
 
-<img width="1160" height="710" alt="image" src="https://github.com/user-attachments/assets/f3e19822-7598-4997-a136-a5360f2f7ace" />
+.MODEL SMALL
+.STACK 100H
 
+.DATA
+    NUM1 DW 1234H
+    NUM2 DW 5678H
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AX, NUM1
+    MOV BX, NUM2
+
+    MOV NUM1, BX
+    MOV NUM2, AX
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
  
 
 ### Expected Result
 
-<img width="426" height="436" alt="image" src="https://github.com/user-attachments/assets/73a8980f-f335-43b1-ae7b-da4ac0a85c8a" />
+Before Exchange:
+NUM1 = 1234H
+NUM2 = 5678H
+
+After Exchange:
+NUM1 = 5678H
+NUM2 = 1234H
 
 ### Explanation
 
