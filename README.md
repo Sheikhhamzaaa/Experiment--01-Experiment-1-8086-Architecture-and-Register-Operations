@@ -213,16 +213,27 @@ First, the data segment register is initialized to access the data stored in mem
 The architecture of the 8086 microprocessor and the functions of the BIU and EU were studied. The 8086 assembly language programs were executed to understand the transfer of 16-bit data between registers and memory, as well as the exchange of two 16-bit values stored in memory.
 
 
-## Viva Voce Questions
+1. What is the function of the BIU in the 8086?
+BIU stands for Bus Interface Unit. It fetches instructions from memory, reads and writes data, and handles address generation.
 
-1.  What is the function of the BIU in the 8086?
-2.  What is the role of the EU?
-3.  Why does the 8086 use a 6-byte instruction queue?
-4.  What is the maximum physical memory address space of the 8086?
-5.  What is the difference between a register and a memory variable?
-6.  Does the `MOV` instruction change the source operand?
-7.  Why are registers used when exchanging two memory values?
-8.  What is the purpose of the DS segment register?
+2. What is the role of the EU?
+EU stands for Execution Unit. It decodes and executes instructions using the ALU and registers.
 
- 
-` 
+3. Why does the 8086 use a 6-byte instruction queue?
+It stores up to 6 bytes of upcoming instructions so the processor can fetch and execute instructions simultaneously, improving speed.
+
+4. What is the maximum physical memory address space of the 8086?
+1 MB (2²⁰ bytes), because it has a 20-bit address bus.
+
+5. What is the difference between a register and a memory variable?
+- Register: Small, fast storage inside the CPU.
+- Memory variable: Data stored in RAM, which is accessed using a memory address.
+
+6. Does the MOV instruction change the source operand?
+No. MOV copies the data from the source to the destination. The source remains unchanged.
+
+7. Why are registers used when exchanging two memory values?
+Because the 8086 does not allow direct memory-to-memory data transfer using a single MOV instruction. A register is used as temporary storage.
+
+8. What is the purpose of the DS segment register?
+DS stands for Data Segment. It stores the starting address of the data segment, which contains program data and variables.
